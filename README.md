@@ -6,19 +6,35 @@ connect SourceKnowledge to Magento 2 store, we instantly create prospecting and 
 existing catalog and help you run them on all comparison shopping and influencer websites. We create audience segments 
 like shopping cart abandoners and past purchasers so you don't have to. 
 
-## How to install SourceKnowledge Shopping Ads Plugin extension?
-1. In Magento 2 `app/code/` directory of your instance, create the folder structure `Sourceknowledge/ShoppingAds`
-2. Extract the package and copy the folder to `app/code/Sourceknowledge/ShoppingAds`
-3. Run the following command in Magento 2 root folder:
-    ```
-    php bin/magento setup:upgrade
-    ```
-4. Recompile your Magento project & clear Cache
-    ```
-    bin/magento setup:di:compile
-    bin/magento cache:clean
-    ```
-5. Open admin panel of your Magento 2 store and goto **System** > **Integrations**
-6. Find the integration **Sourceknowledge_ShoppingAds** and click **Activate** to grant the required permissions.
-7. When asked about Sourceknowledge account, choose "Existing" or "New Client" to complete the activation process.
-8. If you already have an account with Sourceknowledge, log in with your credentials or signup to complete the activation process. 
+##Compatibility
+```
+>=2.3.1
+```
+
+## Installation
+### Install via composer (recommended)
+Run the following command in Magento 2 root folder:
+```
+composer require sourceknowledge/shopping-ads
+```
+
+### Using GIT clone
+git clone https://github.com/sourceknowledge/shopping-ads.git app/code/Sourceknowledge/ShoppingAds
+
+## Activation
+Run the following commands in Magento 2 root folder:
+```
+php bin/magento module:enable Sourceknowledge_ShoppingAds
+php bin/magento setup:upgrade
+```
+
+Clear Cache
+```
+bin/magento cache:clean
+```
+
+## Configuration
+1. **System** > **Integrations** > **Sourceknowledge_ShoppingAds**
+2. Click **Activate** to grant the required permissions.
+3. When asked about Sourceknowledge account, choose **EXISTING CLIENT** or **NEW CLIENT** otherwise, and complete the activation process.
+4. If you already have an account with Sourceknowledge, log in with your credentials or sign-up to complete the activation process. 
