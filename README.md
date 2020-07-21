@@ -6,7 +6,7 @@ connect SourceKnowledge to Magento 2 store, we instantly create prospecting and 
 existing catalog and help you run them on all comparison shopping and influencer websites. We create audience segments 
 like shopping cart abandoners and past purchasers so you don't have to. 
 
-##Compatibility
+## Compatibility
 ```
 >=2.3.1
 ```
