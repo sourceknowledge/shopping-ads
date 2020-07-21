@@ -1,0 +1,29 @@
+<?php
+
+/**
+ * SourceKnowledge Shopping Ads
+ *
+ * @category  SourceKnowledge
+ * @package   SourceKnowledge_ShoppingAds
+ * @author    SourceKnowledge Development <dev@sourceknowledge.com>
+ * @copyright 2020 SourceKnowledge (https://www.sourceknowledge.com/)
+ * @license   https://www.sourceknowledge.com/LICENSE.txt MIT
+ * @link      https://www.sourceknowledge.com/
+ */
+
+/** @var Sourceknowledge\ShoppingAds\Block\AbstractPixel $block */
+?>
+<noscript>
+    <img height="1"
+         width="1"
+         src="//upx.provenpixel.com/mage.js.php?noscript=1&shop="<?= /* @noEscape */ $block->getQueryParams() ?>/>
+</noscript>
+<script type="text/x-magento-init">
+{
+    "*": {
+        "Sourceknowledge_ShoppingAds/js/pixel-code": {
+            "query": "<?= /* @noEscape */ $block->getQueryParams() ?>"
+        }
+    }
+}
+</script>

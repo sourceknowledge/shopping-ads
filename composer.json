@@ -1,0 +1,38 @@
+{
+    "name": "sourceknowledge/shopping-ads",
+    "description": "This extension allows you to integrate your magento store with Sourceknowledge Shopping Ads",
+    "require": {
+        "php": "~7.0.0",
+        "magento/framework": "2.0.0",
+        "magento/module-integration": "2.0.0"
+    },
+    "type": "magento2-module",
+    "version": "1.0.0",
+    "autoload": {
+        "files": [
+            "registration.php"
+        ],
+        "psr-4": {
+            "Sourceknowledge\\ShoppingAds\\": ""
+        }
+    },
+    "scripts": {
+        "install-cs": [
+            "[ -d 'bin' ] || mkdir bin",
+            "curl -OL https://squizlabs.github.io/PHP_CodeSniffer/phpcs.phar",
+            "curl -OL https://squizlabs.github.io/PHP_CodeSniffer/phpcbf.phar",
+            "mv *.phar ./bin",
+            "[ -d 'bin/magecs' ] || git clone -b master https://github.com/magento/magento-coding-standard.git bin/magecs",
+            "php bin/phpcs.phar --config-set installed_paths bin/magecs"
+        ],
+        "phpcs": [
+            "php bin/phpcs.phar . --ignore=*/bin/*"
+        ],
+        "phpcbf": [
+            "php bin/phpcbf.phar . --ignore=*/bin/*"
+        ],
+        "build": [
+            "rm -f sourceknowledge-shopping-ads.zip && zip -r sourceknowledge-shopping-ads.zip * -x@.gitignore"
+        ]
+    }
+}

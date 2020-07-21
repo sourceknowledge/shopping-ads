@@ -1,0 +1,11 @@
+<integrations>
+    <integration name="Sourceknowledge_ShoppingAds">
+        <resources>
+            <!--  Get access to product catalog  -->
+            <resource name="Magento_Catalog::catalog" />
+            <resource name="Magento_CatalogInventory::cataloginventory" />
+            <resource name="Magento_Catalog::products" />
+            <resource name="Magento_Catalog::categories" />
+        </resources>
+    </integration>
+</integrations>
