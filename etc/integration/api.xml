@@ -1,3 +1,9 @@
+<!--
+/**
+ * Copyright © 2020 Sourceknowledge. All rights reserved.
+ * See LICENSE.txt for license details.
+ */
+-->
 <integrations>
     <integration name="Sourceknowledge_ShoppingAds">
         <resources>

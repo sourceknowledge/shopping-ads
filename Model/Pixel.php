@@ -5,11 +5,14 @@
  *
  * PHP version 7
  *
+ * Copyright © Sourceknowledge. All rights reserved.
+ * See LICENSE.txt for license details.
+ *
  * @category  SourceKnowledge
  * @package   Sourceknowledge_ShoppingAds
  * @author    SourceKnowledge Development <dev@sourceknowledge.com>
- * @copyright 2020 SourceKnowledge (https://www.sourceknowledge.com/)
- * @license   https://www.sourceknowledge.com/LICENSE.txt MIT
+ * @copyright 2020 Sourceknowledge. All rights reserved.
+ * @license   LICENSE.txt GNU GENERAL PUBLIC LICENSE
  * @link      https://www.sourceknowledge.com/
  */
 
@@ -23,8 +26,8 @@ namespace Sourceknowledge\ShoppingAds\Model;
  * @category  SourceKnowledge
  * @package   Sourceknowledge_ShoppingAds
  * @author    SourceKnowledge Development <dev@sourceknowledge.com>
- * @copyright 2020 SourceKnowledge (https://www.sourceknowledge.com/)
- * @license   https://www.sourceknowledge.com/LICENSE.txt MIT
+ * @copyright 2020 Sourceknowledge. All rights reserved.
+ * @license   LICENSE.txt GNU GENERAL PUBLIC LICENSE
  * @link      https://www.sourceknowledge.com/
  */
 class Pixel
