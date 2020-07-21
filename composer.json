@@ -7,6 +7,9 @@
         "magento/module-integration": "2.0.0"
     },
     "type": "magento2-module",
+    "license": [
+        "GPL-3.0"
+    ],
     "version": "1.0.0",
     "autoload": {
         "files": [
