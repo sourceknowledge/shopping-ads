@@ -8,7 +8,7 @@ like shopping cart abandoners and past purchasers so you don't have to.
 
 ## Compatibility
 ```
->=2.3.1
+Magento Open Source (CE) 2.3
 ```
 
 ## Installation
