@@ -1,10 +1,10 @@
 # SourceKnowledge Shopping Ads for Magento 2
-Our Magento 2 plugin will automatically add SourceKnowledge pixels to your store and generate a shopping feed from your catalog.
+Automatically add SourceKnowledge pixels to your store and generate a shopping feed from your catalog to increase sales on 
+your website.
 
 In just a few steps, you can install the SourceKnowledge App and turn your Magento 2 catalog into shopping ads. Once you 
-connect SourceKnowledge to Magento 2 store, we instantly create prospecting and retargeting shopping ads based on your 
-existing catalog and help you run them on all comparison shopping and influencer websites. We create audience segments 
-like shopping cart abandoners and past purchasers so you don't have to. 
+connect SourceKnowledge to your Magento 2 store, you instantly run your product catalog on comparison shopping engines, 
+deal sites, native advertising and on social media.
 
 ## Compatibility
 ```
@@ -24,11 +24,15 @@ git clone https://github.com/sourceknowledge/shopping-ads.git app/code/Sourcekno
 ## Activation
 Run the following commands in Magento 2 root folder:
 ```
-php bin/magento module:enable Sourceknowledge_ShoppingAds
-php bin/magento setup:upgrade
+bin/magento module:enable Sourceknowledge_ShoppingAds
+bin/magento setup:upgrade
+bin/magento setup:static-content:deploy
 ```
-
-Clear Cache
+Recompile your Magento project
+```
+bin/magento setup:di:compile
+```
+## Clear Cache
 ```
 bin/magento cache:clean
 ```
