@@ -9,6 +9,7 @@ deal sites, native advertising and on social media.
 ## Compatibility
 ```
 Magento Open Source (CE) 2.3
+Magento Open Source (CE) 2.4
 ```
 
 ## Installation
@@ -42,3 +43,10 @@ bin/magento cache:clean
 2. Click **Activate** to grant the required permissions.
 3. When asked about Sourceknowledge account, choose **EXISTING CLIENT** or **NEW CLIENT** otherwise, and complete the activation process.
 4. If you already have an account with Sourceknowledge, log in with your credentials or sign-up to complete the activation process. 
+
+## Discount Code URL
+Allows discount codes to be applied to a browser session automatically via a query string. For example, with the default settings, the following will make sure the MYDISCOUNTCODE coupon is applied during checkout:
+
+https://url.to.my.store?sk_coupon=MYDISCOUNTCODE
+
+Config options can be found in Stores -> Configuration -> Customers -> Promotions -> Discount URL Settings
