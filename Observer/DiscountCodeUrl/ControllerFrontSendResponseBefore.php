@@ -41,32 +41,40 @@ use Sourceknowledge\ShoppingAds\Helper\Cookie;
 class ControllerFrontSendResponseBefore implements ObserverInterface
 {
     /**
+     * The Config
+     *
      * @var Config
      */
-    private $config;
+    private $_config;
 
     /**
+     * The Cookie Helper
+     *
      * @var Cookie
      */
-    private $cookieHelper;
+    private $_cookieHelper;
 
     /**
-     * @var Registry $registry
+     * Registry
+     *
+     * @var Registry
      */
-    private $registry;
+    private $_registry;
 
     /**
+     * Message Manager
+     *
      * @var ManagerInterface
      */
-    private $messageManager;
+    private $_messageManager;
 
     /**
      * Constructor
      *
-     * @param Config           $config
-     * @param Cookie           $cookieHelper
-     * @param Registry         $registry
-     * @param ManagerInterface $messageManager
+     * @param Config           $config         The Config
+     * @param Cookie           $cookieHelper   The Cookie Helper
+     * @param Registry         $registry       The Registry
+     * @param ManagerInterface $messageManager The Message Manager
      */
     public function __construct(
         Config $config,
@@ -74,30 +82,34 @@ class ControllerFrontSendResponseBefore implements ObserverInterface
         Registry $registry,
         ManagerInterface $messageManager
     ) {
-        $this->config = $config;
-        $this->cookieHelper = $cookieHelper;
-        $this->registry = $registry;
-        $this->messageManager = $messageManager;
+        $this->_config = $config;
+        $this->_cookieHelper = $cookieHelper;
+        $this->_registry = $registry;
+        $this->_messageManager = $messageManager;
     }
 
     /**
-     * {@inheritDoc}
+     * Execute function
+     *
+     * @param Observer $observer The Observer
+     *
+     * @return void
      */
     public function execute(Observer $observer)
     {
-        if ($this->config->isEnabled()) {
-            $coupon = $this->registry->registry('sourceknowledge_shopping_ads_discounturl_coupon');
-            $message = $this->registry->registry('sourceknowledge_shopping_ads_discounturl_message');
+        if ($this->_config->isEnabled()) {
+            $coupon = $this->_registry->registry('sourceknowledge_shopping_ads_discounturl_coupon');
+            $message = $this->_registry->registry('sourceknowledge_shopping_ads_discounturl_message');
 
             if ($coupon) {
-                $this->cookieHelper->setCookie($coupon);
+                $this->_cookieHelper->setCookie($coupon);
             }
 
             if ($message) {
                 if ($message['error']) {
-                    $this->messageManager->addError($message['message']);
+                    $this->_messageManager->addError($message['message']);
                 } else {
-                    $this->messageManager->addSuccess($message['message']);
+                    $this->_messageManager->addSuccess($message['message']);
                 }
             }
         }

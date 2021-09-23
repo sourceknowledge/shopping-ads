@@ -43,56 +43,72 @@ use Magento\Checkout\Model\Session;
 class FrontControllerInterface
 {
     /**
+     * The Request Interface
+     *
      * @var RequestInterface
      */
-    private $request;
+    private $_request;
 
     /**
+     * Config
+     *
      * @var Config
      */
-    private $config;
+    private $_config;
 
     /**
+     * Cookie Helper
+     *
      * @var Cookie
      */
-    private $cookieHelper;
+    private $_cookieHelper;
 
     /**
+     * The Cart Helper
+     *
      * @var Cart
      */
-    private $cartHelper;
+    private $_cartHelper;
 
     /**
+     * Coupon Model
+     *
      * @var Coupon
      */
-    private $couponModel;
+    private $_couponModel;
 
     /**
+     * The Rule Model
+     *
      * @var Rule
      */
-    private $ruleModel;
+    private $_ruleModel;
 
     /**
-     * @var Registry $registry
+     * The Registry
+     *
+     * @var Registry
      */
-    private $registry;
+    private $_registry;
 
     /**
+     * The Session
+     *
      * @var Session
      */
-    private $checkoutSession;
+    private $_checkoutSession;
 
     /**
      * Constructor
      *
-     * @param RequestInterface $request
-     * @param Config $config
-     * @param Cookie $cookieHelper
-     * @param Cart $cartHelper
-     * @param Coupon $couponModel
-     * @param Rule $ruleModel
-     * @param Registry $registry
-     * @param Session $checkoutSession
+     * @param RequestInterface $request         Request
+     * @param Config           $config          Config
+     * @param Cookie           $cookieHelper    Cookie Helper
+     * @param Cart             $cartHelper      Cart Helper
+     * @param Coupon           $couponModel     Coupon Model
+     * @param Rule             $ruleModel       Rule Model
+     * @param Registry         $registry        Registry
+     * @param Session          $checkoutSession Checkout Session
      */
     public function __construct(
         RequestInterface $request,
@@ -104,14 +120,14 @@ class FrontControllerInterface
         Registry $registry,
         Session $checkoutSession
     ) {
-        $this->request = $request;
-        $this->config = $config;
-        $this->cookieHelper = $cookieHelper;
-        $this->cartHelper = $cartHelper;
-        $this->couponModel = $couponModel;
-        $this->ruleModel = $ruleModel;
-        $this->registry = $registry;
-        $this->checkoutSession = $checkoutSession;
+        $this->_request = $request;
+        $this->_config = $config;
+        $this->_cookieHelper = $cookieHelper;
+        $this->_cartHelper = $cartHelper;
+        $this->_couponModel = $couponModel;
+        $this->_ruleModel = $ruleModel;
+        $this->_registry = $registry;
+        $this->_checkoutSession = $checkoutSession;
     }
 
     /**
@@ -120,57 +136,56 @@ class FrontControllerInterface
      *
      * @param \Magento\Framework\App\FrontControllerInterface $subject (not used)
      *
-     * @return null
+     * @return void
      */
     public function beforeDispatch(\Magento\Framework\App\FrontControllerInterface $subject)
     {
-        if ($this->config->isEnabled()) {
-            $queryParameter = $this->config->getUrlParameter();
+        if ($this->_config->isEnabled()) {
+            $queryParameter = $this->_config->getUrlParameter();
 
             // Discount code passed through the URL via query string
-            $coupon = $this->request->getParam($queryParameter);
+            $coupon = $this->_request->getParam($queryParameter);
             if ($coupon) {
                 $invalidMessage = "Discount code <strong>$coupon</strong> is invalid";
                 $expiredMessage = "Unfortunately, the <strong>$coupon</strong> discount code is expired";
                 $consumedMessage = "Unfortunately, the <strong>$coupon</strong> discount code has been fully consumed";
 
-                $this->couponModel->loadByCode($coupon);
+                $this->_couponModel->loadByCode($coupon);
 
-                if ($this->couponModel->getId()) {
-                    $this->ruleModel->load($this->couponModel->getRuleId());
+                if ($this->_couponModel->getId()) {
+                    $this->_ruleModel->load($this->_couponModel->getRuleId());
 
-                    if ($this->ruleModel->getId()) {
+                    if ($this->_ruleModel->getId()) {
                         $today = strtotime(date("Y-m-d"));
-                        $startDay = $this->ruleModel->getFromDate();
-                        $expirationDay = $this->ruleModel->getToDate();
+                        $startDay = $this->_ruleModel->getFromDate();
+                        $expirationDay = $this->_ruleModel->getToDate();
 
-                        $numUses = $this->couponModel->getTimesUsed();
-                        $maxUses = $this->couponModel->getUsageLimit();
+                        $numUses = $this->_couponModel->getTimesUsed();
+                        $maxUses = $this->_couponModel->getUsageLimit();
 
-                        $usesPerCustomer = $this->couponModel->getUsagePerCustomer();
+                        $usesPerCustomer = $this->_couponModel->getUsagePerCustomer();
 
                         // Discount code is expired
                         if ($expirationDay && strtotime($expirationDay) < $today) {
-                            $this->registry->register('sourceknowledge_shopping_ads_discounturl_message', [
+                            $this->_registry->register(
+                                'sourceknowledge_shopping_ads_discounturl_message', [
                                 'message' => __($expiredMessage),
                                 'error' => true
-                            ]);
-                        }
-
-                        // Discount hasn't started yet
-                        elseif ($startDay && strtotime($startDay) > $today) {
-                            $this->registry->register('sourceknowledge_shopping_ads_discounturl_message', [
+                                ]
+                            );
+                        } elseif ($startDay && strtotime($startDay) > $today) {
+                            $this->_registry->register(
+                                'sourceknowledge_shopping_ads_discounturl_message', [
                                 'message' => __($invalidMessage),
                                 'error' => true
-                            ]);
-                        }
-
-                        // Coupon has already been fully consumed
-                        elseif ($maxUses && $numUses >= $maxUses) {
-                            $this->registry->register('sourceknowledge_shopping_ads_discounturl_message', [
+                                ]
+                            );
+                        } elseif ($maxUses && $numUses >= $maxUses) {
+                            $this->_registry->register(
+                                'sourceknowledge_shopping_ads_discounturl_message', [
                                 'message' => __($consumedMessage),
-                                'error' => true
-                            ]);
+                                'error' => true]
+                            );
                         } else {
                             $successMessage = "Discount code <strong>$coupon</strong> will be applied to your order during checkout";
                             if ($usesPerCustomer && $usesPerCustomer > 0) {
@@ -183,23 +198,29 @@ class FrontControllerInterface
                                 $successMessage .= " per customer)";
                             }
 
-                            $this->registry->register('sourceknowledge_shopping_ads_discounturl_coupon', $coupon);
-                            $this->registry->register('sourceknowledge_shopping_ads_discounturl_message', [
+                            $this->_registry->register('sourceknowledge_shopping_ads_discounturl_coupon', $coupon);
+                            $this->_registry->register(
+                                'sourceknowledge_shopping_ads_discounturl_message', [
                                 'message' => __($successMessage),
                                 'error' => false
-                            ]);
+                                ]
+                            );
                         }
                     } else {
-                        $this->registry->register('sourceknowledge_shopping_ads_discounturl_message', [
+                        $this->_registry->register(
+                            'sourceknowledge_shopping_ads_discounturl_message', [
                             'message' => __($invalidMessage),
                             'error' => true
-                        ]);
+                            ]
+                        );
                     }
                 } else {
-                    $this->registry->register('sourceknowledge_shopping_ads_discounturl_message', [
+                    $this->_registry->register(
+                        'sourceknowledge_shopping_ads_discounturl_message', [
                         'message' => __($invalidMessage),
                         'error' => true
-                    ]);
+                        ]
+                    );
                 }
             }
         }
@@ -216,21 +237,21 @@ class FrontControllerInterface
      * FrontController::dispatch() finishes.
      *
      * @param \Magento\Framework\App\FrontControllerInterface $subject (not used)
-     * @param ResponseInterface|ResultInterface Return value of FrontController::dispatch()
+     * @param ResponseInterface|ResultInterface               $result  Return value of FrontController::dispatch()
      *
      * @return ResponseInterface|ResultInterface
      */
     public function afterDispatch(\Magento\Framework\App\FrontControllerInterface $subject, $result)
     {
-        if ($this->config->isEnabled()) {
+        if ($this->_config->isEnabled()) {
 
             // If a quote already exists, apply the
             // discount automatically (if possible)
-            $coupon = $this->registry->registry('sourceknowledge_shopping_ads_discounturl_coupon');
+            $coupon = $this->_registry->registry('sourceknowledge_shopping_ads_discounturl_coupon');
 
-            if ($coupon && $this->checkoutSession->hasQuote()) {
-                $this->cartHelper->applyCoupon(
-                    $this->checkoutSession->getQuote(),
+            if ($coupon && $this->_checkoutSession->hasQuote()) {
+                $this->_cartHelper->applyCoupon(
+                    $this->_checkoutSession->getQuote(),
                     $coupon
                 );
             }

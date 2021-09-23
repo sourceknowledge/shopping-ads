@@ -63,12 +63,16 @@ class Config extends AbstractHelper
     const DEFAULT_COOKIE_LIFETIME = 0;
 
     /**
-     * @var string Whether or not the module is enabled
+     * Whether or not the module is enabled
+     *
+     * @var string
      */
     const ENABLED_CONFIG_PATH = 'promo/discounturl/enabled';
 
     /**
-     * @var string How long the cookie should last
+     * How long the cookie should last
+     *
+     * @var string
      */
     const COOKIE_LIFETIME_CONFIG_PATH = 'promo/discounturl/cookie_lifetime';
 

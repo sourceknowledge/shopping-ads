@@ -41,48 +41,58 @@ use Sourceknowledge\ShoppingAds\Helper\Cookie;
 class CheckoutCartSaveAfter implements ObserverInterface
 {
     /**
+     * Config
+     *
      * @var Config
      */
-    private $config;
+    private $_config;
 
     /**
+     * Cookie Helper
+     *
      * @var Cookie
      */
-    private $cookieHelper;
+    private $_cookieHelper;
 
     /**
+     * Cart
+     *
      * @var Cart
      */
-    private $cartHelper;
+    private $_cartHelper;
 
     /**
      * Constructor
      *
-     * @param Config          $config
-     * @param Cookie          $cookieHelper
-     * @param Cart            $cartHelper
+     * @param Config $config       Config
+     * @param Cookie $cookieHelper Cookie Helper
+     * @param Cart   $cartHelper   Cart Helper
      */
     public function __construct(
         Config $config,
         Cookie $cookieHelper,
         Cart $cartHelper
     ) {
-        $this->config       = $config;
-        $this->cookieHelper = $cookieHelper;
-        $this->cartHelper   = $cartHelper;
+        $this->_config       = $config;
+        $this->_cookieHelper = $cookieHelper;
+        $this->_cartHelper   = $cartHelper;
     }
 
     /**
-     * {@inheritDoc}
+     * Execute function
+     *
+     * @param Observer $observer The Observer
+     *
+     * @return void
      */
     public function execute(Observer $observer)
     {
-        if ($this->config->isEnabled()) {
-            $coupon = $this->cookieHelper->getCookie();
+        if ($this->_config->isEnabled()) {
+            $coupon = $this->_cookieHelper->getCookie();
             if ($coupon) {
                 $cart = $observer->getData('cart');
                 if ($cart) {
-                    $this->cartHelper->applyCoupon($cart->getQuote(), $coupon);
+                    $this->_cartHelper->applyCoupon($cart->getQuote(), $coupon);
                 }
             }
         }

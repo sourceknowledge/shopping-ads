@@ -39,37 +39,45 @@ use Sourceknowledge\ShoppingAds\Helper\Cookie;
 class SalesOrderPlaceAfter implements ObserverInterface
 {
     /**
+     * The Config
+     *
      * @var Config
      */
-    private $config;
+    private $_config;
 
     /**
+     * The Cookie
+     *
      * @var Cookie
      */
-    private $cookieHelper;
+    private $_cookieHelper;
 
     /**
      * Constructor
      *
-     * @param Config $config
-     * @param Cookie $cookieHelper
+     * @param Config $config       The Config
+     * @param Cookie $cookieHelper The Cookie Helper
      */
     public function __construct(
         Config $config,
         Cookie $cookieHelper
     ) {
-        $this->config       = $config;
-        $this->cookieHelper = $cookieHelper;
+        $this->_config       = $config;
+        $this->_cookieHelper = $cookieHelper;
     }
 
     /**
-     * {@inheritDoc}
+     * Execute function
+     *
+     * @param Observer $observer The Observer
+     *
+     * @return void
      */
     public function execute(Observer $observer): void
     {
         // Once we've placed an order, we should delete the coupon cookie so
-        if ($this->config->isEnabled()) {
-            $this->cookieHelper->deleteCookie();
+        if ($this->_config->isEnabled()) {
+            $this->_cookieHelper->deleteCookie();
         }
     }
 }

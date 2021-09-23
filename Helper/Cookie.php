@@ -39,44 +39,51 @@ use Magento\Framework\Stdlib\CookieManagerInterface;
 class Cookie
 {
     /**
+     * Cookie Manager
+     *
      * @var CookieManagerInterface
      */
-    private $cookieManager;
+    private $_cookieManager;
 
     /**
+     * Cookie MetadataFactory
+     *
      * @var CookieMetadataFactory
      */
-    private $cookieMetadataFactory;
+    private $_cookieMetadataFactory;
 
     /**
+     * Session Manager Interface
+     *
      * @var SessionManagerInterface
      */
-    private $sessionManager;
+    private $_sessionManager;
 
     /**
+     * The Config
+     *
      * @var Config
      */
-    private $config;
+    private $_config;
 
     /**
      * Cookie constructor.
      *
-     * @param CookieManagerInterface  $cookieManager
-     * @param CookieMetadataFactory   $cookieMetadataFactory
-     * @param SessionManagerInterface $sessionManager
-     * @param Config                  $config
+     * @param CookieManagerInterface  $cookieManager         Cookie Manager
+     * @param CookieMetadataFactory   $cookieMetadataFactory Cookie Meta Data
+     * @param SessionManagerInterface $sessionManager        Session Manager
+     * @param Config                  $config                Config
      */
     public function __construct(
         CookieManagerInterface $cookieManager,
         CookieMetadataFactory $cookieMetadataFactory,
         SessionManagerInterface $sessionManager,
         Config $config
-    )
-    {
-        $this->cookieManager         = $cookieManager;
-        $this->cookieMetadataFactory = $cookieMetadataFactory;
-        $this->sessionManager        = $sessionManager;
-        $this->config                = $config;
+    ) {
+        $this->_cookieManager         = $cookieManager;
+        $this->_cookieMetadataFactory = $cookieMetadataFactory;
+        $this->_sessionManager        = $sessionManager;
+        $this->_config                = $config;
     }
 
     /**
@@ -86,31 +93,32 @@ class Cookie
      */
     public function getCookie()
     {
-        $value = $this->cookieManager->getCookie($this->config->getCookieName());
+        $value = $this->_cookieManager->getCookie($this->_config->getCookieName());
 
         return $value ? $value : null;
     }
 
     /**
-     * Sets the coupon code cookie so we can remember it in the current session.
+     * Sets the coupon code cookie, so we can remember it in the current session.
      *
-     * @param $value
+     * @param mixed $value The Value
+     *
      * @return null
      */
     public function setCookie($value)
     {
-        $cookieLifetime = $this->config->getCookieLifetime();
-        $metadata       = $this->cookieMetadataFactory->createPublicCookieMetadata();
+        $cookieLifetime = $this->_config->getCookieLifetime();
+        $metadata       = $this->_cookieMetadataFactory->createPublicCookieMetadata();
 
-        $metadata->setPath($this->sessionManager->getCookiePath());
-        $metadata->setDomain($this->sessionManager->getCookieDomain());
+        $metadata->setPath($this->_sessionManager->getCookiePath());
+        $metadata->setDomain($this->_sessionManager->getCookieDomain());
         $metadata->setHttpOnly(false);
 
         if ($cookieLifetime > 0) {
             $metadata->setDuration($cookieLifetime);
         }
 
-        $this->cookieManager->setPublicCookie($this->config->getCookieName(), $value, $metadata);
+        $this->_cookieManager->setPublicCookie($this->_config->getCookieName(), $value, $metadata);
     }
 
     /**
@@ -120,12 +128,12 @@ class Cookie
      */
     public function deleteCookie()
     {
-        $metadata = $this->cookieMetadataFactory->createPublicCookieMetadata();
+        $metadata = $this->_cookieMetadataFactory->createPublicCookieMetadata();
 
-        $metadata->setPath($this->sessionManager->getCookiePath());
-        $metadata->setDomain($this->sessionManager->getCookieDomain());
+        $metadata->setPath($this->_sessionManager->getCookiePath());
+        $metadata->setDomain($this->_sessionManager->getCookieDomain());
         $metadata->setHttpOnly(false);
 
-        $this->cookieManager->deleteCookie($this->config->getCookieName(), $metadata);
+        $this->_cookieManager->deleteCookie($this->_config->getCookieName(), $metadata);
     }
 }
