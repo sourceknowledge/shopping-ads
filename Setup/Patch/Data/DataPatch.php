@@ -25,6 +25,7 @@ class DataPatch implements DataPatchInterface
      * @var ModuleDataSetupInterface
      */
     private ModuleDataSetupInterface $moduleDataSetup;
+
     /**
      * Integration manager.
      *
