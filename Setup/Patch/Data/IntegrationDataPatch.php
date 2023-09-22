@@ -19,7 +19,7 @@ use Magento\Integration\Model\IntegrationFactory;
  * DataPatch for integration setup
  *
  */
-class DataPatch implements DataPatchInterface
+class IntegrationDataPatch implements DataPatchInterface
 {
     /**
      * @var ModuleDataSetupInterface
