@@ -7,7 +7,7 @@
 <integrations>
     <integration name="Sourceknowledge_ShoppingAds">
         <email>support@sourceknowledge.com</email>
-        <endpoint_url>https://plugins.kevin.citeeze.com/magento/shopping-ads/auth</endpoint_url>
-        <identity_link_url>https://app.kevin.citeeze.com/magento/shopping-ads/init</identity_link_url>
+        <endpoint_url>https://plugins.sourceknowledge.com/magento/shopping-ads/auth</endpoint_url>
+        <identity_link_url>https://app.sourceknowledge.com/magento/shopping-ads/init</identity_link_url>
     </integration>
 </integrations>
